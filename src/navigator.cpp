@@ -649,6 +649,28 @@ void Navigator::closePage() {
     }
 }
 
+void Navigator::setDateTime(int year, int month, int day, int hour, int mins, int secs) {
+    char buffer[16] ;
+
+    sprintf(buffer, "rtc0=%d", year) ;
+    this->nextion->sendCommand(buffer) ;
+
+    sprintf(buffer, "rtc1=%d", month) ;
+    this->nextion->sendCommand(buffer) ;
+
+    sprintf(buffer, "rtc2=%d", day) ;
+    this->nextion->sendCommand(buffer) ;
+
+    sprintf(buffer, "rtc3=%d", hour) ;
+    this->nextion->sendCommand(buffer) ;
+
+    sprintf(buffer, "rtc4=%d", mins) ;
+    this->nextion->sendCommand(buffer) ;
+
+    sprintf(buffer, "rtc5=%d", secs) ;
+    this->nextion->sendCommand(buffer) ;
+}
+
 void Navigator::loop() {
     this->nextion->nexLoop(this->ntlist) ;
 }

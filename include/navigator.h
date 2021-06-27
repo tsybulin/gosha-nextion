@@ -41,6 +41,7 @@ class Navigator {
         void closePage() ;
         void changeBrightness(int itemNo, int step) ;
         void changeAlarm(int itemNo, int state) ;
+        void setDateTime(int year = 2000, int month = 1, int day = 1, int hour = 0, int mins = 0, int secs = 0) ;
 
     private:
         Nextion *nextion ;

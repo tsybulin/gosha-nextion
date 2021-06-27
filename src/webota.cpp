@@ -8,6 +8,8 @@
 
 ESP8266WebServer OTAServer(9999) ;
 
+extern date_time_set_t date_time_set ;
+
 int WebOTA::init(const unsigned int port, const char *path) {
     this->port = port ;
 	this->path = path ;
@@ -55,7 +57,7 @@ long WebOTA::max_sketch_size() {
 }
 
 void handleIndex(ESP8266WebServer *server) {
-    String s = INDEX_HTML ;
+    String s = INDEX_HTMLX ;
     server->send(200, "text/html", s) ;
 }
 
@@ -64,6 +66,27 @@ int WebOTA::add_http_routes(ESP8266WebServer *server, const char *path) {
 	// Index page
 	server->on("/", HTTP_GET, [server]() {
 		handleIndex(server) ;
+	}) ;
+
+	server->on("/dt", HTTP_GET, [server,this]() {
+		String year = server->arg("year") ;
+		String month = server->arg("month") ;
+		String day = server->arg("day") ;
+
+		String hour = server->arg("hour") ;
+		String mins = server->arg("mins") ;
+		String secs = server->arg("secs") ;
+
+		handleIndex(server) ;
+		unsigned long now = millis() ;
+		while (millis() - now < 1000) {
+			server->handleClient() ;
+		}
+
+		if (date_time_set) {
+			date_time_set(year.toInt(), month.toInt(), day.toInt(), hour.toInt(), mins.toInt(), secs.toInt()) ;
+		}
+
 	}) ;
 
 	server->on("/reboot", HTTP_GET, [server]() {

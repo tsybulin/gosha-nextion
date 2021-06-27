@@ -4,6 +4,8 @@
 #include <Arduino.h>
 #include <ESP8266WebServer.h>
 
+typedef void (*date_time_set_t)(int, int, int, int, int, int) ;
+
 class WebOTA {
 	public:
 		unsigned int port ;

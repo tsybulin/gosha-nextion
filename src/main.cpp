@@ -30,6 +30,12 @@ void changeEntity(Entity *entity) {
 
 entity_changed_t change_entity = changeEntity ;
 
+void nav_setDateTime(int year, int month, int day, int hour, int mins, int secs) {
+    nav.setDateTime(year, month, day, hour, mins, secs) ;
+}
+
+date_time_set_t date_time_set = nav_setDateTime ;
+
 void setup() {
     Debug_begin(57600) ;
     Debug_println() ;
