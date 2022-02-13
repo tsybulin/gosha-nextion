@@ -3,7 +3,7 @@
 
 #define WIFI_SSID "panda"
 #define WIFI_PASSWD "pandapandapan"
-#define HOSTNAME "nexx"
+#define HOSTNAME "nexxx"
 
 #define MQTT_SERVER "172.16.102.251"
 #define MQTT_CLIENT HOSTNAME "-123"

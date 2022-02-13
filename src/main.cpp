@@ -39,11 +39,11 @@ date_time_set_t date_time_set = nav_setDateTime ;
 void setup() {
     Debug_begin(57600) ;
     Debug_println() ;
-    Debug_println("NEXX setup") ;
+    Debug_println("NEXX setup 1") ;
 
     nav.setup() ;
 
-    nav.setBootProgress(10) ;
+    nav.setBootProgress(20) ;
 
     wifi_connect() ;
     Debug_print("wifi connected ") ;
@@ -52,24 +52,24 @@ void setup() {
 #endif
     Debug_println() ;
 
-    nav.setBootProgress(20) ;
+    nav.setBootProgress(40) ;
 
     webota.init(80) ;
     if (MDNS.begin(HOSTNAME)) {
         webota.mdns = HOSTNAME ;
     }
 
-    nav.setBootProgress(30) ;
+    nav.setBootProgress(60) ;
 
     mqtt_setup() ;
 
-    nav.setBootProgress(40) ;
+    nav.setBootProgress(80) ;
 
     if (!mqtt_connected()) {
         mqtt_reconnect() ;
     }
 
-    nav.setBootProgress(50) ;
+    nav.setBootProgress(90) ;
 
     nav.showHomePage() ;
 }

@@ -1,12 +1,18 @@
 #include "navigator.h"
 
-// #include <SoftwareSerial.h>
 #include "debugger.h"
+
+#ifdef NEXX_DEBUG_ENABLE
+#include <SoftwareSerial.h>
+SoftwareSerial nexxSerial(4, 5) ; // RX, TX
+#define NEXX_SERIAL nexxSerial
+#else
+#define NEXX_SERIAL Serial
+#endif
 
 extern entity_get_t entity_get ;
 extern entity_changed_t change_entity ;
 
-// SoftwareSerial mySerial_D1(D2, D1) ; // RX, TX
 
 enum ALARM_STATE {
     ALARM_STATE_NA = -1,
@@ -89,7 +95,7 @@ navigation_t *blonCallback, *blpCallback , *blmCallback,
              *alarmHomeCallback, *alarmNightCallback, *alarmAwayCallback, *alarmDisarmCallback ;
 
 Navigator::Navigator() {
-    this->nextion = Nextion::GetInstance(Serial) ;
+    this->nextion = Nextion::GetInstance(NEXX_SERIAL) ;
     
     this->pageBoot = new NexPage(this->nextion, 0, "efi") ;
     this->pbBoot = new NexProgressBar(this->nextion, 0, 2, "pbar", this->pageBoot) ;
@@ -211,17 +217,17 @@ Navigator::Navigator() {
     this->gaugeitem( 0, 0, 0, 21, "Temp, C", "%2.1f", 10, 40, 42) ;
     this->switchitem(0, 0, 1, 5, "Телевизор", 34, 35) ;
     this->switchitem(0, 0, 2, 11, "Прихожая", 18, 19) ;
-    this->switchitem(0, 0, 3, 6, "Диван", 14, 15) ;
+    this->switchitem(0, 0, 3, 2, "Диван", 14, 15) ;
     this->switchitem(0, 0, 4, 8, "Малый свет", 26, 27) ;
     this->switchitem(0, 0, 5, 9, "Большой свет", 26, 27) ;
 
     this->switchitem(1, 0, 0, 1, "Верхний свет", 12, 13) ;
-    this->switchitem(1, 0, 1, 2, "Настоль. лампа", 14, 15) ;
+    this->switchitem(1, 0, 1, 6, "Настоль. лампа", 14, 15) ;
     this->switchitem(1, 0, 2, 3, "Розетка", 30, 31) ;
     this->switchitem(1, 0, 3, 4, "Стол", 20, 21) ;
 
     this->switchitem(2, 0, 0, 5, "Телевизор", 34, 35) ;
-    this->switchitem(2, 0, 1, 6, "Диван", 14, 15) ;
+    this->switchitem(2, 0, 1, 2, "Диван", 14, 15) ;
     this->switchitem(2, 0, 2, 7, "Ночник", 43, 44) ;
     this->gaugeitem(2, 0, 3, 21, "Temp, C", "%2.1f", 10, 40, 42) ;
     this->switchitem(2, 0, 4, 8, "Малый свет", 26, 27) ;

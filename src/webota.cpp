@@ -4,7 +4,7 @@
 
 #include "indexhtml.h"
 #include "webotahtml.h"
-
+#include "debugger.h"
 
 ESP8266WebServer OTAServer(9999) ;
 
@@ -118,13 +118,15 @@ int WebOTA::add_http_routes(ESP8266WebServer *server, const char *path) {
 			uint32_t maxSketchSpace = this->max_sketch_size() ;
 
 			if (!Update.begin(maxSketchSpace)) {
-				//start with max available size
-				// Update.printError(Serial) ;
+#ifdef NEXX_DEBUG_ENABLE
+			    Update.printError(Serial) ;
+#endif
 			}
 		} else if (upload.status == UPLOAD_FILE_WRITE) {
-			/* flashing firmware to ESP*/
 			if (Update.write(upload.buf, upload.currentSize) != upload.currentSize) {
-				// Update.printError(Serial) ;
+#ifdef NEXX_DEBUG_ENABLE
+			    Update.printError(Serial) ;
+#endif
 			}
 
 			// Store the next milestone to output
@@ -137,9 +139,11 @@ int WebOTA::add_http_routes(ESP8266WebServer *server, const char *path) {
 			}
 		} else if (upload.status == UPLOAD_FILE_END) {
 			if (Update.end(true)) { //true to set the size to the current progress
-				//
+				Debug_println("Update end") ;
 			} else {
-				//
+#ifdef NEXX_DEBUG_ENABLE
+			    Update.printError(Serial) ;
+#endif
 			}
 		}
 	});
