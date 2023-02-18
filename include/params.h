@@ -5,7 +5,7 @@
 #define WIFI_PASSWD "pandapandapan"
 #define HOSTNAME "nexxx"
 
-#define MQTT_SERVER "172.16.102.251"
+#define MQTT_SERVER "172.16.101.251"
 #define MQTT_CLIENT HOSTNAME "-123"
 #define MQTT_USER "tasmota"
 #define MQTT_PASSWD "123456"

@@ -221,6 +221,10 @@ Navigator::Navigator() {
     this->switchitem(0, 0, 4, 8, "Малый свет", 26, 27) ;
     this->switchitem(0, 0, 5, 9, "Большой свет", 26, 27) ;
 
+    this->switchitem(0, 1, 0, 4, "Зал", 18, 19) ;
+    this->switchitem(0, 1, 1, 3, "Кухня", 18, 19) ;
+    this->switchitem(0, 1, 2, 5, "Корридор", 18, 19) ;
+
     this->switchitem(1, 0, 0, 1, "Верхний свет", 12, 13) ;
     this->switchitem(1, 0, 1, 6, "Настоль. лампа", 14, 15) ;
     this->switchitem(1, 0, 2, 3, "Розетка", 30, 31) ;
@@ -250,6 +254,10 @@ Navigator::Navigator() {
     this->switchitem(5, 0, 0, 14, "Люстра", 26, 27) ;
     this->switchitem(5, 0, 1, 15, "Свет", 12, 13) ;
     this->switchitem(5, 0, 2, 16, "Раб. зона", 49, 50) ;
+    this->switchitem(5, 0, 3, 28, "Вытяжка", 24, 25) ;
+
+    this->switchitem(6, 0, 0, 26, "Ближний", 12, 13) ;
+    this->switchitem(6, 0, 1, 27, "Дальний", 12, 13) ;
 }
 
 void Navigator::switchitem(int pageNumber, int subpageNumber, int itemNumber, int entityId, const char *title, int iconOff, int iconOn) {
