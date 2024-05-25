@@ -21,8 +21,6 @@ class WebOTA {
 	private:
 		bool init_has_run ;
 		int add_http_routes(ESP8266WebServer *server, const char *path) ;
-		String get_ota_html() ;
-		long max_sketch_size() ;
 } ;
 
 #endif

@@ -215,22 +215,23 @@ Navigator::Navigator() {
     this->ntlist[25] = nullptr ;
 
     this->gaugeitem( 0, 0, 0, 21, "Temp, C", "%2.1f", 10, 40, 42) ;
-    this->switchitem(0, 0, 1, 5, "Телевизор", 34, 35) ;
+    // this->switchitem(0, 0, 1, 5, "Телевизор", 34, 35) ;
     this->switchitem(0, 0, 2, 11, "Прихожая", 18, 19) ;
     this->switchitem(0, 0, 3, 2, "Диван", 14, 15) ;
     this->switchitem(0, 0, 4, 8, "Малый свет", 26, 27) ;
     this->switchitem(0, 0, 5, 9, "Большой свет", 26, 27) ;
 
-    this->switchitem(0, 1, 0, 4, "Зал", 18, 19) ;
-    this->switchitem(0, 1, 1, 3, "Кухня", 18, 19) ;
-    this->switchitem(0, 1, 2, 5, "Корридор", 18, 19) ;
+    this->switchitem(0, 1, 0, 4, "Зал аварийка", 30, 31) ;
+    this->switchitem(0, 1, 1, 5, "Корр. аварийка", 30, 31) ;
+    this->switchitem(0, 1, 2, 3, "Кухня аварийка", 30, 31) ;
 
     this->switchitem(1, 0, 0, 1, "Верхний свет", 12, 13) ;
     this->switchitem(1, 0, 1, 6, "Настоль. лампа", 14, 15) ;
-    this->switchitem(1, 0, 2, 3, "Розетка", 30, 31) ;
-    this->switchitem(1, 0, 3, 4, "Стол", 20, 21) ;
+    // this->switchitem(1, 0, 2, 3, "Розетка", 30, 31) ;
+    // this->switchitem(1, 0, 3, 4, "Стол", 20, 21) ;
+    this->switchitem(1, 0, 4, 29, "Mi Lamp", 14, 15) ;
 
-    this->switchitem(2, 0, 0, 5, "Телевизор", 34, 35) ;
+    // this->switchitem(2, 0, 0, 5, "Телевизор", 34, 35) ;
     this->switchitem(2, 0, 1, 2, "Диван", 14, 15) ;
     this->switchitem(2, 0, 2, 7, "Ночник", 43, 44) ;
     this->gaugeitem(2, 0, 3, 21, "Temp, C", "%2.1f", 10, 40, 42) ;
@@ -301,6 +302,8 @@ void Navigator::setup() {
         Debug_println("Nextion init failed") ;
         return ;
     }
+
+    this->nextion->sendCommand("dim=20") ;
 
     this->pageBoot->show() ;
     this->pbBoot->setValue(0) ;

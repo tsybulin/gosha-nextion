@@ -16,7 +16,7 @@ document.getElementById('mins').setAttribute('value', currentdate.getMinutes()) 
 document.getElementById('secs').setAttribute('value', currentdate.getSeconds()) ;
 }
 </script>
-</head> <body onload="bodyReady()"> <div id="content"> <h1>NEXX</h1> <form action="/" method="GET"> <button class="btn">Main menu</button> </form> <form action="/webota" method="GET"> <button class="btn">Update firmware</button> </form>
+</head> <body onload="bodyReady()"> <div id="content"> <h1>NEXX</h1> <form action="/" method="GET"> <button class="btn">Main menu</button> </form> 
 <form action="/dt" method="GET">
 <input type="hidden" name="year" id="year" value="">
 <input type="hidden" name="month" id="month" value="">

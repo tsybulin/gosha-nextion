@@ -3,7 +3,6 @@
 #include <ESP8266mDNS.h>
 
 #include "indexhtml.h"
-#include "webotahtml.h"
 #include "debugger.h"
 
 ESP8266WebServer OTAServer(9999) ;
@@ -52,10 +51,6 @@ void WebOTA::delay(unsigned int ms) {
 	}
 }
 
-long WebOTA::max_sketch_size() {
-	return (ESP.getFreeSketchSpace() - 0x1000) & 0xFFFFF000 ;
-}
-
 void handleIndex(ESP8266WebServer *server) {
     String s = INDEX_HTMLX ;
     server->send(200, "text/html", s) ;
@@ -98,55 +93,6 @@ int WebOTA::add_http_routes(ESP8266WebServer *server, const char *path) {
 		ESP.restart() ;
 	}) ;
 
-	// Upload firmware page
-	server->on(path, HTTP_GET, [server,this]() {
-        String s = WEBOTA_HTML ;
-        server->send(200, "text/html", s) ;
-	});
-
-	// Handling uploading firmware file
-	server->on(path, HTTP_POST, [server,this]() {
-		server->send(200, "text/plain", (Update.hasError()) ? "Update: fail\n" : "Update: OK!\n");
-		delay(500);
-		ESP.restart();
-	}, [server,this]() {
-		HTTPUpload& upload = server->upload() ;
-
-		if (upload.status == UPLOAD_FILE_START) {
-
-			//uint32_t maxSketchSpace = (ESP.getFreeSketchSpace() - 0x1000) & 0xFFFFF000 ;
-			uint32_t maxSketchSpace = this->max_sketch_size() ;
-
-			if (!Update.begin(maxSketchSpace)) {
-#ifdef NEXX_DEBUG_ENABLE
-			    Update.printError(Serial) ;
-#endif
-			}
-		} else if (upload.status == UPLOAD_FILE_WRITE) {
-			if (Update.write(upload.buf, upload.currentSize) != upload.currentSize) {
-#ifdef NEXX_DEBUG_ENABLE
-			    Update.printError(Serial) ;
-#endif
-			}
-
-			// Store the next milestone to output
-			uint16_t chunk_size  = 51200 ;
-			static uint32_t next = 51200 ;
-
-			// Check if we need to output a milestone (100k 200k 300k)
-			if (upload.totalSize >= next) {
-				next += chunk_size;
-			}
-		} else if (upload.status == UPLOAD_FILE_END) {
-			if (Update.end(true)) { //true to set the size to the current progress
-				Debug_println("Update end") ;
-			} else {
-#ifdef NEXX_DEBUG_ENABLE
-			    Update.printError(Serial) ;
-#endif
-			}
-		}
-	});
 
 	server->begin() ;
 

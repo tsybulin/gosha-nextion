@@ -145,7 +145,8 @@ Entity entities[] = {
 
     {26, "lady/stat/ladylight/POWER1", "lady/cmnd/ladylight/POWER1", switch_parser},
     {27, "lady/stat/ladylight/POWER2", "lady/cmnd/ladylight/POWER2", switch_parser},
-    {28, "kitchen/stat/kitchenfan/POWER", "kitchen/cmnd/kitchenfan/POWER", switch_parser}
+    {28, "kitchen/stat/kitchenfan/POWER", "kitchen/cmnd/kitchenfan/POWER", switch_parser},
+    {29, "cabinet/stat/midesk/RESULT", "POWER", "cabinet/cmnd/midesk/POWER", "cabinet/cmnd/midesk/DIMMER", "Dimmer", light_json_parser},
 } ;
 
 void mqttHandler(char* topic, byte* payload, unsigned int length) {
